@@ -40,7 +40,7 @@ namespace Weather.Views
             WriteLine("---Start Console program---\n");
 
             var p = new Program(this);
-            await p.myMain();
+            await p.MyMain();
 
             WriteLine("\n---End Console program---");
         }

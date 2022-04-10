@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
-
+using Weather.Models;
+using Weather.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using Weather.Models;
-using Weather.Services;
+using System.Collections.ObjectModel;
 
 namespace Weather.Views
 {
@@ -24,25 +19,35 @@ namespace Weather.Views
         public ForecastPage()
         {
             InitializeComponent();
-            
+
             service = new OpenWeatherService();
             groupedforecast = new GroupedForecast();
+            OnAppearing();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
+            
             //Code here will run right before the screen appears
             //You want to set the Title or set the City
-
+            
             //This is making the first load of data
-            MainThread.BeginInvokeOnMainThread(async () => {await LoadForecast();});
+            MainThread.BeginInvokeOnMainThread(async () => { await LoadForecast(); });
         }
 
         private async Task LoadForecast()
         {
-            //Heare you load the forecast 
+            //Here you load the forecast 
+            
+            string city = "Märsta";
+            await service.GetForecastAsync(city);
+            Task<Forecast> t1 = service.GetForecastAsync(city);
+            
+            var items = t1.Result.Items;
+            var groupedItems = items.OrderBy(f => f.DateTime.Hour).GroupBy(f => f.DateTime.Date.ToString("dddd, MMMM d, yyyy"));
+            GroupedDataList.ItemsSource = groupedItems;
+
         }
     }
 }

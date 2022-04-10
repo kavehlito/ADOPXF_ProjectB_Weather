@@ -4,7 +4,24 @@
              x:Class="Weather.Views.ForecastPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label>Your code to present the weather data for example in a ListView</Label>
+            <Label x:Name="lblDate">Your code to present the weather data for example in a ListView</Label>
+            <ListView x:Name="GroupedDataList" IsGroupingEnabled="True" HasUnevenRows="True">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="40">
+                            <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="40" 
+                                 Padding="5" Orientation="Horizontal">
+                                <Label FontSize="20" VerticalOptions="Center" Text="{Binding Key}" TextColor="DarkCyan"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding DateTime.TimeOfDay}" Detail="{Binding .}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
