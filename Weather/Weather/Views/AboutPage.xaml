@@ -8,15 +8,15 @@
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
             <Label Text="Project Part B" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
-        <Label Text="Weather in Xamarin.Forms" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="This part of the project is about making a simple UI in to the console weather service made in project part A using Flyout." 
+        <Label Text="Project B1 - Weather" FontSize="Title" Padding="30,10,30,10"/>
+        <Label Text="Welcome to my Weather App!" 
                FontSize="16" Padding="30,0,30,0"/>
-        <Label Text="Select a city and give it a try!" FontSize="16" Padding="30,0,30,0"/>
+        <Label Text="Select a city to view the weather." FontSize="16" Padding="30,0,30,0"/>
         <Label FontSize="16" Padding="30,24,30,0">
             <Label.FormattedText>
                 <FormattedString>
                     <FormattedString.Spans>
-                        <Span Text="Created by Kaveh Jaliliyan"/>
+                        <Span Text="Created by Kaveh Jaliliyan!"/>
                     </FormattedString.Spans>
                 </FormattedString>
             </Label.FormattedText>

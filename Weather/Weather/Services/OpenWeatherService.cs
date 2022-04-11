@@ -29,25 +29,25 @@ namespace Weather.Services
             WeatherForecastAvailable?.Invoke(this, e);
         }
 
-        public async Task<Forecast> GetForecastAsync(string City)
+        public async Task<Forecast> GetForecastAsync(string city)
         {
 
             Forecast forecast;
 
             var date = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
-            if (!_Cityforecastcache.TryGetValue((City, date), out forecast))
+            if (!_Cityforecastcache.TryGetValue((city, date), out forecast))
             {
                 //https://openweathermap.org/current
                 var language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-                var uri = $"https://api.openweathermap.org/data/2.5/forecast?q={City}&units=metric&lang={language}&appid={apiKey}";
+                var uri = $"https://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&lang={language}&appid={apiKey}";
                 forecast = await ReadWebApiAsync(uri);
 
-                _Cityforecastcache.TryAdd((City, date), forecast);
+                _Cityforecastcache.TryAdd((city, date), forecast);
 
-                OnWeatherAvailable($"New weather forecast for {City} available");
+                OnWeatherAvailable($"New weather forecast for {city} available");
             }
-            else OnWeatherAvailable($"Cached weather forecast for {City} available");
+            else OnWeatherAvailable($"Cached weather forecast for {city} available");
 
             return forecast;
 
@@ -89,8 +89,7 @@ namespace Weather.Services
 
             // part of your data transformation to Forecast here
             Forecast forecast = new Forecast();
-            try
-            {
+
                 forecast.City = wd.city.name;
                 forecast.Items = wd.list.Select(item => new ForecastItem
                 {
@@ -98,14 +97,9 @@ namespace Weather.Services
                     Temperature = item.main.temp,
                     WindSpeed = item.wind.speed,
                     Description = item.weather.Select(desc => desc.description).FirstOrDefault().ToString(),
-                    Icon = item.weather.Select(icon => icon.icon).ToString()
+                    Icon = item.weather.Select(icon => icon.icon).FirstOrDefault().ToString()
                 }).ToList();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+                forecast.Items.ForEach(x => x.Icon = $"http://openweathermap.org/img/wn/{x.Icon}@2x.png");
             //generate an event with different message if cached data
 
             return forecast;

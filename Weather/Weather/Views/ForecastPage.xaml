@@ -4,21 +4,36 @@
              x:Class="Weather.Views.ForecastPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="lblDate">Your code to present the weather data for example in a ListView</Label>
+            <StackLayout>
+                <Button Text="Refresh" BackgroundColor="Green" TextColor="Black" Clicked="Button_Clicked"/>
+                <ProgressBar x:Name="progBar" Progress="0" HeightRequest="15" IsVisible="false"/>
+            </StackLayout>
             <ListView x:Name="GroupedDataList" IsGroupingEnabled="True" HasUnevenRows="True">
                 <ListView.GroupHeaderTemplate>
                     <DataTemplate>
                         <ViewCell Height="40">
-                            <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="40" 
+                            <StackLayout>
+                                <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="40" 
                                  Padding="5" Orientation="Horizontal">
                                 <Label FontSize="20" VerticalOptions="Center" Text="{Binding Key}" TextColor="DarkCyan"/>
+                            </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding DateTime.TimeOfDay}" Detail="{Binding .}"/>
+                        <ViewCell>
+                            <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Padding="5,10,5,15">
+                                <StackLayout HorizontalOptions="Start" Orientation="Vertical" Padding="3">
+                                    <Image Source="{Binding Icon}" HorizontalOptions="FillAndExpand" WidthRequest="100"/>
+                                </StackLayout>
+                                <StackLayout HorizontalOptions="Start" Orientation="Vertical">
+                                    <Label Text="{Binding DateTime, StringFormat='{0:HH\\:mm}'}" HorizontalOptions="Start" FontSize="20" FontAttributes="Bold"/>
+                                    <Label HorizontalOptions="Start" FontSize="12" FontAttributes="Bold" Text="{Binding .}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
