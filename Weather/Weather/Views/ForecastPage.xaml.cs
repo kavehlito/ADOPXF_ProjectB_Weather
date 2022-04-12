@@ -19,11 +19,9 @@ namespace Weather.Views
         public ForecastPage()
         {
             InitializeComponent();
-
             service = new OpenWeatherService();
             groupedforecast = new GroupedForecast();
-
-           
+            
         }
 
         protected override void OnAppearing()
@@ -43,7 +41,7 @@ namespace Weather.Views
 
             await service.GetForecastAsync(Title);
             Task<Forecast> t1 = service.GetForecastAsync(Title);
-            
+            var title = Title;
             var items = t1.Result.Items;
             var groupedItems = items.OrderBy(f => f.DateTime.Date).GroupBy(f => f.DateTime.Date.ToString("dddd, MMMM d, yyyy"));
 
@@ -51,8 +49,7 @@ namespace Weather.Views
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
-        {
-            
+        { 
             progBar.IsVisible = true;
             await progBar.ProgressTo(1, 4000, Easing.Linear);
             await LoadForecast();

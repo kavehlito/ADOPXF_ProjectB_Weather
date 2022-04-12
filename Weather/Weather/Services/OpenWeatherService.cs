@@ -99,6 +99,7 @@ namespace Weather.Services
                     Description = item.weather.Select(desc => desc.description).FirstOrDefault().ToString(),
                     Icon = item.weather.Select(icon => icon.icon).FirstOrDefault().ToString()
                 }).ToList();
+
                 forecast.Items.ForEach(x => x.Icon = $"http://openweathermap.org/img/wn/{x.Icon}@2x.png");
             //generate an event with different message if cached data
 

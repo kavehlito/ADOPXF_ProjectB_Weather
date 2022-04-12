@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Weather.Views.ForecastPage">
+    
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
@@ -16,7 +17,7 @@
                                 <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="40" 
                                  Padding="5" Orientation="Horizontal">
                                 <Label FontSize="20" VerticalOptions="Center" Text="{Binding Key}" TextColor="DarkCyan"/>
-                            </StackLayout>
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

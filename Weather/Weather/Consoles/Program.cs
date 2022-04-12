@@ -82,10 +82,10 @@ namespace Weather.Consoles
 
                 //Create the two tasks and wait for comletion
                 await service.GetForecastAsync(city);
-                await service.GetForecastAsync(city);
+                await service.GetForecastAsync(latitude, longitude);
 
                 t1 = service.GetForecastAsync(city);
-                t2 = service.GetForecastAsync(city);
+                t2 = service.GetForecastAsync(latitude, longitude);
                 Task.WaitAll(t1, t2);
 
                 t3 = service.GetForecastAsync(city);
